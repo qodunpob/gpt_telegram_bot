@@ -1,1 +1,8 @@
+# Development
 node_modules
+
+# Testing
+coverage
+
+# IDE
+.idea
