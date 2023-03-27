@@ -18,4 +18,12 @@ describe("App", () => {
     const response = await telegramGatewayMock.sendMessage("Hello world!");
     expect(response).toBe("!dlrow olleH");
   });
+
+  it("should stop telegram bot with given signal", () => {
+    const telegramGatewayMock = aTelegramGatewayMock();
+    const app = new App(telegramGatewayMock, anOpenaiGatewayMock());
+
+    app.stop("TEST");
+    expect(telegramGatewayMock.stop).toHaveBeenCalledWith("TEST");
+  });
 });

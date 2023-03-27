@@ -1,7 +1,7 @@
-import { OpenaiGateway } from "../openai.gateway";
+import { OpenAIGateway } from "../openai.gateway";
 
-export const anOpenaiGatewayMock = (): jest.Mocked<OpenaiGateway> => ({
-  completion: jest.fn((message) =>
-    Promise.resolve(message.split("").reverse().join(""))
+export const anOpenaiGatewayMock = (): jest.Mocked<OpenAIGateway> => ({
+  completion: jest.fn((prompt) =>
+    Promise.resolve(prompt.split("").reverse().join(""))
   ),
 });
