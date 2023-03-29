@@ -19,8 +19,9 @@ class TelegrafTelegramGateway implements TelegramGateway {
 
   onReceiveMessage(respond: (userMessage: string) => Promise<string>) {
     this.bot.on(message("text"), async (ctx) => {
-      ctx.sendChatAction("typing");
-      ctx.reply(await respond(ctx.message.text));
+      await ctx.persistentChatAction("typing", async () => {
+        ctx.reply(await respond(ctx.message.text));
+      });
     });
   }
 
