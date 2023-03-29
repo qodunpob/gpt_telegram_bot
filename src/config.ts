@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-import { getRequiredEnv } from "./utils/common.util";
+import { getDependedEnv, getRequiredEnv } from "./utils/common.util";
 
 dotenv.config();
 
@@ -16,12 +16,32 @@ export interface OpenAIConfig {
   };
 }
 
-export type Config = TelegramConfig & OpenAIConfig;
+export interface DbConfig {
+  db: {
+    provider?: string;
+    url?: string;
+  };
+}
+
+export interface FeatureConfig {
+  feature: {
+    conversationMode: boolean;
+  };
+}
+
+export type Config = TelegramConfig & OpenAIConfig & DbConfig & FeatureConfig;
 
 export const config: Config = {
   telegram: { token: getRequiredEnv("TELEGRAM_TOKEN") },
   openai: {
     token: getRequiredEnv("OPENAI_TOKEN"),
     model: process.env.OPENAI_MODEL ?? "gpt-3.5-turbo",
+  },
+  db: {
+    provider: getDependedEnv("DB_PROVIDER", "FEATURE_CONVERSATION_MODE"),
+    url: getDependedEnv("DB_URL", "FEATURE_CONVERSATION_MODE"),
+  },
+  feature: {
+    conversationMode: process.env.FEATURE_CONVERSATION_MODE === "true",
   },
 };
