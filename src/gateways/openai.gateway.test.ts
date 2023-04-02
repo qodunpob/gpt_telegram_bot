@@ -9,7 +9,7 @@ describe("OpenAI Gateway", () => {
       "test-model",
       "Test system message"
     );
-    await openaiGateway.completion([{ role: "user", content: "Hello world!" }]);
+    await openaiGateway.complete([{ role: "user", content: "Hello world!" }]);
     expect(openAIApi.createChatCompletion).toHaveBeenCalledWith({
       model: "test-model",
       messages: [
@@ -26,7 +26,7 @@ describe("OpenAI Gateway", () => {
       "test-model",
       "Test system message"
     );
-    const response = await openaiGateway.completion([
+    const response = await openaiGateway.complete([
       { role: "user", content: "Hello world!" },
     ]);
     expect(response).toBe("Oops, something went wrong");

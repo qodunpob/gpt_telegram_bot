@@ -3,7 +3,7 @@ import { OpenAIConfig } from "../config";
 import { Message } from "../models/message";
 
 export interface OpenAIGateway {
-  completion(messages: Message[]): Promise<string>;
+  complete(messages: Message[]): Promise<string>;
 }
 
 export class SdkOpenAIGateway implements OpenAIGateway {
@@ -13,7 +13,7 @@ export class SdkOpenAIGateway implements OpenAIGateway {
     private readonly systemMessage: string
   ) {}
 
-  async completion(messages: Message[]): Promise<string> {
+  async complete(messages: Message[]): Promise<string> {
     const completion = await this.openai.createChatCompletion({
       model: this.model,
       messages: [{ role: "system", content: this.systemMessage }, ...messages],

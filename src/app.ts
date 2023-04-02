@@ -21,7 +21,7 @@ export class App {
 
   private setHandler() {
     this.telegramGateway.onReceiveMessage((content) =>
-      this.openaiGateway.completion([{ role: "user", content }])
+      this.openaiGateway.complete([{ role: "user", content }])
     );
   }
 }
