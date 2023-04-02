@@ -1,29 +1,26 @@
 import { Configuration, OpenAIApi } from "openai";
 import { OpenAIConfig } from "../config";
+import { Message } from "../models/message";
 
 export interface OpenAIGateway {
-  completion(prompt: string): Promise<string>;
+  completion(messages: Message[]): Promise<string>;
 }
 
-class SdkOpenAiGateway implements OpenAIGateway {
+export class SdkOpenAIGateway implements OpenAIGateway {
   constructor(
     private readonly openai: OpenAIApi,
-    private readonly model: string
+    private readonly model: string,
+    private readonly systemMessage: string
   ) {}
 
-  async completion(prompt: string): Promise<string> {
+  async completion(messages: Message[]): Promise<string> {
     const completion = await this.openai.createChatCompletion({
       model: this.model,
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
+      messages: [{ role: "system", content: this.systemMessage }, ...messages],
     });
 
     return (
-      completion.data.choices[0].message?.content ??
+      completion.data.choices[0]?.message?.content ??
       "Oops, something went wrong"
     );
   }
@@ -35,5 +32,9 @@ export const openAIGatewayFactory = (config: OpenAIConfig) => {
       apiKey: config.openai.token,
     })
   );
-  return new SdkOpenAiGateway(openai, config.openai.model);
+  return new SdkOpenAIGateway(
+    openai,
+    config.openai.model,
+    config.openai.systemMessage
+  );
 };

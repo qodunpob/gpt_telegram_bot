@@ -20,8 +20,8 @@ export class App {
   }
 
   private setHandler() {
-    this.telegramGateway.onReceiveMessage((message) =>
-      this.openaiGateway.completion(message)
+    this.telegramGateway.onReceiveMessage((content) =>
+      this.openaiGateway.completion([{ role: "user", content }])
     );
   }
 }

@@ -13,6 +13,7 @@ export interface OpenAIConfig {
   openai: {
     token: string;
     model: string;
+    systemMessage: string;
   };
 }
 
@@ -36,6 +37,8 @@ export const config: Config = {
   openai: {
     token: getRequiredEnv("OPENAI_TOKEN"),
     model: process.env.OPENAI_MODEL ?? "gpt-3.5-turbo",
+    systemMessage:
+      process.env.OPENAI_SYSTEM_MESSAGE ?? "You are a helpful assistant",
   },
   db: {
     provider: getDependedEnv("DB_PROVIDER", "FEATURE_CONVERSATION_MODE"),
