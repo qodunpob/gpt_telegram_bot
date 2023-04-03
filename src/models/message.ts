@@ -5,6 +5,6 @@ export interface ConversationMessage {
 
 export interface ChatMessage {
   id: number;
-  repliedId?: number;
+  repliedTo?: number;
   content: string;
 }

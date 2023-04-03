@@ -24,7 +24,7 @@ class TelegrafTelegramGateway implements TelegramGateway {
         const { message_id, text } = ctx.message;
         const response = await respond({
           id: message_id,
-          repliedId: ctx.message.reply_to_message?.message_id,
+          repliedTo: ctx.message.reply_to_message?.message_id,
           content: text,
         });
         await ctx.reply(response, {
