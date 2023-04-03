@@ -1,11 +1,12 @@
 import { Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
 import { TelegramConfig } from "../config";
+import { ChatMessage } from "../models/message";
 
 export interface TelegramGateway {
   launch(): Promise<void>;
 
-  onReceiveMessage(respond: (userMessage: string) => Promise<string>): void;
+  onReceiveMessage(respond: (message: ChatMessage) => Promise<string>): void;
 
   stop(signal: string): void;
 }
@@ -17,11 +18,16 @@ class TelegrafTelegramGateway implements TelegramGateway {
     return this.bot.launch();
   }
 
-  onReceiveMessage(respond: (userMessage: string) => Promise<string>) {
+  onReceiveMessage(respond: (message: ChatMessage) => Promise<string>) {
     this.bot.on(message("text"), async (ctx) => {
       await ctx.persistentChatAction("typing", async () => {
         const { message_id, text } = ctx.message;
-        await ctx.reply(await respond(text), {
+        const response = await respond({
+          id: message_id,
+          repliedId: ctx.message.reply_to_message?.message_id,
+          content: text,
+        });
+        await ctx.reply(response, {
           reply_to_message_id: message_id,
         });
       });

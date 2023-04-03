@@ -3,19 +3,21 @@ import { OpenAIApi } from "openai";
 class OpenAIApiMockBuilder {
   private choices: { message: { content: string } }[] = [];
 
-  withResponse = (content: string) => {
+  withResponse(content: string) {
     this.choices = [{ message: { content } }];
     return this;
-  };
+  }
 
-  build = () =>
-    ({
+  build() {
+    const choices = this.choices;
+    return {
       createChatCompletion: jest.fn(() =>
         Promise.resolve({
-          data: { choices: this.choices },
+          data: { choices },
         })
       ),
-    } as unknown as OpenAIApi);
+    } as unknown as jest.Mocked<OpenAIApi>;
+  }
 }
 
 export const anOpenAIApiMock = () => new OpenAIApiMockBuilder();

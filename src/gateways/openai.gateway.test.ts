@@ -10,6 +10,7 @@ describe("OpenAI Gateway", () => {
       "Test system message"
     );
     await openaiGateway.complete([{ role: "user", content: "Hello world!" }]);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(openAIApi.createChatCompletion).toHaveBeenCalledWith({
       model: "test-model",
       messages: [

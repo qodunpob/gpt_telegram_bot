@@ -1,9 +1,9 @@
 import { Configuration, OpenAIApi } from "openai";
 import { OpenAIConfig } from "../config";
-import { Message } from "../models/message";
+import { ConversationMessage } from "../models/message";
 
 export interface OpenAIGateway {
-  complete(messages: Message[]): Promise<string>;
+  complete(messages: ConversationMessage[]): Promise<string>;
 }
 
 export class SdkOpenAIGateway implements OpenAIGateway {
@@ -13,7 +13,7 @@ export class SdkOpenAIGateway implements OpenAIGateway {
     private readonly systemMessage: string
   ) {}
 
-  async complete(messages: Message[]): Promise<string> {
+  async complete(messages: ConversationMessage[]): Promise<string> {
     const completion = await this.openai.createChatCompletion({
       model: this.model,
       messages: [{ role: "system", content: this.systemMessage }, ...messages],

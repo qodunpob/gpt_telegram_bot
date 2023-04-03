@@ -1,10 +1,12 @@
 import { OpenAIGateway } from "./gateways/openai.gateway";
 import { TelegramGateway } from "./gateways/telegram.gateway";
+import { StorageGateway } from "./gateways/storage/storage.gateway";
 
 export class App {
   constructor(
     private readonly telegramGateway: TelegramGateway,
-    private readonly openaiGateway: OpenAIGateway
+    private readonly openaiGateway: OpenAIGateway,
+    private readonly storageGateway: StorageGateway
   ) {
     this.setHandler();
   }
@@ -20,8 +22,10 @@ export class App {
   }
 
   private setHandler() {
-    this.telegramGateway.onReceiveMessage((content) =>
-      this.openaiGateway.complete([{ role: "user", content }])
+    this.telegramGateway.onReceiveMessage(async (message) =>
+      this.openaiGateway.complete(
+        await this.storageGateway.makeConversation(message)
+      )
     );
   }
 }
