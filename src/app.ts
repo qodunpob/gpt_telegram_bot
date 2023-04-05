@@ -26,7 +26,13 @@ export class App {
       const response = await this.openaiGateway.complete(
         await this.storageGateway.makeConversation(message)
       );
-      await replay(response);
+      const responseId = await replay(response);
+      await this.storageGateway.saveMessage({
+        id: responseId,
+        repliedTo: message.id,
+        role: "assistant",
+        content: response,
+      });
     });
   }
 }

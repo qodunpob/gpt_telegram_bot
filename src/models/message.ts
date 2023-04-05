@@ -6,6 +6,7 @@ export interface ConversationMessage {
 export interface ChatMessage {
   id: MessageId;
   repliedTo?: MessageId;
+  role: "user" | "assistant";
   content: string;
 }
 

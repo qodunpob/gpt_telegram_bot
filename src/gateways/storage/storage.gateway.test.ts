@@ -5,6 +5,7 @@ describe("Storage Gateway", () => {
     const storageGateway = new PrismaStorageGateway();
     const conversation = await storageGateway.makeConversation({
       id: 1,
+      role: "user",
       content: "Hello world!",
     });
     expect(conversation).toEqual([{ role: "user", content: "Hello world!" }]);

@@ -24,6 +24,7 @@ describe("App", () => {
     await telegramGatewayMock.triggerReceiveMessageEvent({
       message: {
         id: 1,
+        role: "user",
         content: "Hello world!",
       },
       replay,
@@ -31,7 +32,29 @@ describe("App", () => {
     expect(replay).toHaveBeenCalledWith("!dlrow olleH");
   });
 
-  it("should stop telegram bot with given signal", () => {
+  it("should save response to storage", async () => {
+    const telegramGatewayMock = aTelegramGatewayMock();
+    const storageGatewayMock = aStorageGatewayMock();
+    new App(telegramGatewayMock, anOpenaiGatewayMock(), storageGatewayMock);
+
+    await telegramGatewayMock.triggerReceiveMessageEvent({
+      message: {
+        id: 1,
+        role: "user",
+        content: "Hello world!",
+      },
+      replay: () => Promise.resolve(2),
+    });
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(storageGatewayMock.saveMessage).toHaveBeenCalledWith({
+      id: 2,
+      repliedTo: 1,
+      role: "assistant",
+      content: "!dlrow olleH",
+    });
+  });
+
+  it("should stop telegram bot with the given signal", () => {
     const telegramGatewayMock = aTelegramGatewayMock();
     const app = new App(
       telegramGatewayMock,

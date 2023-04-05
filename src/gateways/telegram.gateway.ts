@@ -37,6 +37,7 @@ class TelegrafTelegramGateway implements TelegramGateway {
           message: {
             id: message_id,
             repliedTo: reply_to_message?.message_id,
+            role: "user",
             content: text,
           },
           replay: async (content) =>
