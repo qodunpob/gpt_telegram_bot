@@ -4,7 +4,9 @@ export interface ConversationMessage {
 }
 
 export interface ChatMessage {
-  id: number;
-  repliedTo?: number;
+  id: MessageId;
+  repliedTo?: MessageId;
   content: string;
 }
+
+export type MessageId = number;

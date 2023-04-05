@@ -20,11 +20,15 @@ describe("App", () => {
     const telegramGatewayMock = aTelegramGatewayMock();
     new App(telegramGatewayMock, anOpenaiGatewayMock(), aStorageGatewayMock());
 
-    const response = await telegramGatewayMock.sendMessage({
-      id: 1,
-      content: "Hello world!",
+    const replay = jest.fn(() => Promise.resolve(2));
+    await telegramGatewayMock.triggerReceiveMessageEvent({
+      message: {
+        id: 1,
+        content: "Hello world!",
+      },
+      replay,
     });
-    expect(response).toBe("!dlrow olleH");
+    expect(replay).toHaveBeenCalledWith("!dlrow olleH");
   });
 
   it("should stop telegram bot with given signal", () => {

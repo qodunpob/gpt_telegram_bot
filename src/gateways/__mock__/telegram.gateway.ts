@@ -1,20 +1,24 @@
-import { TelegramGateway } from "../telegram.gateway";
-import { ChatMessage } from "../../models/message";
+import { ReceiveMessageEvent, TelegramGateway } from "../telegram.gateway";
 
 class TelegramGatewayMock implements jest.Mocked<TelegramGateway> {
-  private respond = ({ content }: ChatMessage) => Promise.resolve(content);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private eventHandler: (event: ReceiveMessageEvent) => Promise<any> = () => {
+    throw new Error("NIY");
+  };
 
   launch = jest.fn();
 
   onReceiveMessage = jest.fn(
-    (respond: (message: ChatMessage) => Promise<string>) => {
-      this.respond = respond;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (eventHandler: (event: ReceiveMessageEvent) => Promise<any>) => {
+      this.eventHandler = eventHandler;
     }
   );
 
   stop = jest.fn();
 
-  sendMessage = (message: ChatMessage) => this.respond(message);
+  triggerReceiveMessageEvent = (event: ReceiveMessageEvent) =>
+    this.eventHandler(event);
 }
 
 export const aTelegramGatewayMock = () => new TelegramGatewayMock();

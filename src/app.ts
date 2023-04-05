@@ -22,10 +22,11 @@ export class App {
   }
 
   private setHandler() {
-    this.telegramGateway.onReceiveMessage(async (message) =>
-      this.openaiGateway.complete(
+    this.telegramGateway.onReceiveMessage(async ({ message, replay }) => {
+      const response = await this.openaiGateway.complete(
         await this.storageGateway.makeConversation(message)
-      )
-    );
+      );
+      await replay(response);
+    });
   }
 }
