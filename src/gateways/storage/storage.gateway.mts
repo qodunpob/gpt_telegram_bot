@@ -55,7 +55,12 @@ export class SequelizeStorageGateway implements StorageGateway {
   }
 }
 
-export const storageGatewayFactory = (config: DbConfig) => {
-  initStorage(config.db.url);
+export const storageGatewayFactory = async (config: DbConfig) => {
+  const sequelize = initStorage(config.db.url);
+  await sequelize.authenticate();
+  console.log("Connection to storage has been established successfully.");
+  if (config.db.sync) {
+    await sequelize.sync();
+  }
   return new SequelizeStorageGateway();
 };

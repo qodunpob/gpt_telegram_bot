@@ -8,7 +8,7 @@ import { App } from "./app.mjs";
 
 const telegramGateway = telegramGatewayFactory(config);
 const openaiGateway = openAIGatewayFactory(config);
-const storageGateway = storageGatewayFactory(config);
+const storageGateway = await storageGatewayFactory(config);
 
 const app = new App(telegramGateway, openaiGateway, storageGateway);
 

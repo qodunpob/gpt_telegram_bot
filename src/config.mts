@@ -20,6 +20,7 @@ export interface OpenAIConfig {
 export interface DbConfig {
   db: {
     url: string;
+    sync: boolean;
   };
 }
 
@@ -35,5 +36,6 @@ export const config: Config = {
   },
   db: {
     url: getRequiredEnv("DB_URL"),
+    sync: process.env.DB_SYNC === "true",
   },
 };
