@@ -1,7 +1,8 @@
 import { ChatMessage, ConversationMessage } from "../../models/message.mjs";
 import { DbConfig } from "../../config.mjs";
-import { initStorage } from "./sequelize-models/index.mjs";
+import { initModels } from "./sequelize-models/index.mjs";
 import { Message } from "./sequelize-models/message.mjs";
+import { Sequelize } from "sequelize";
 
 export interface StorageGateway {
   makeConversation(message: ChatMessage): Promise<ConversationMessage[]>;
@@ -56,7 +57,10 @@ export class SequelizeStorageGateway implements StorageGateway {
 }
 
 export const storageGatewayFactory = async (config: DbConfig) => {
-  const sequelize = initStorage(config.db.url);
+  const sequelize = new Sequelize(config.db.url, {
+    logging: config.db.logging ? console.debug : false,
+  });
+  initModels(sequelize);
   await sequelize.authenticate();
   console.log("Connection to storage has been established successfully.");
   if (config.db.sync) {

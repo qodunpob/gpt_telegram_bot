@@ -6,11 +6,14 @@ A simple Node.js implementation of a Telegram Bot that uses the OpenAI API to ge
 
 ```
 TELEGRAM_TOKEN
+
 OPENAI_TOKEN
 OPENAI_MODEL
 OPENAI_SYSTEM_MESSAGE
+
 DB_URL
 DB_SYNC
+DB_LOGGING
 ```
 
 ### Note

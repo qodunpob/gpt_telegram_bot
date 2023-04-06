@@ -1,12 +1,13 @@
 import { SequelizeStorageGateway } from "./storage.gateway.mjs";
 import { Sequelize } from "sequelize";
-import { initStorage } from "./sequelize-models/index.mjs";
+import { initModels } from "./sequelize-models/index.mjs";
 import { Message } from "./sequelize-models/message.mjs";
 
 describe("Storage Gateway", () => {
   let sequelize: Sequelize;
   beforeAll(async () => {
-    sequelize = initStorage("sqlite::memory:");
+    sequelize = new Sequelize("sqlite::memory:", { logging: false });
+    initModels(sequelize);
     await sequelize.sync();
   });
 
