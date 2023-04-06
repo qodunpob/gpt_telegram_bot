@@ -1,6 +1,8 @@
-import { OpenAIGateway } from "./gateways/openai.gateway";
-import { TelegramGateway } from "./gateways/telegram.gateway";
-import { StorageGateway } from "./gateways/storage/storage.gateway";
+import {
+  OpenAIGateway,
+  StorageGateway,
+  TelegramGateway,
+} from "./gateways/index.mjs";
 
 export class App {
   constructor(

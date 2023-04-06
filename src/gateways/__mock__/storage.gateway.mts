@@ -1,4 +1,4 @@
-import { StorageGateway } from "../storage/storage.gateway";
+import { StorageGateway } from "../storage/storage.gateway.mjs";
 
 export const aStorageGatewayMock = (): jest.Mocked<StorageGateway> => ({
   makeConversation: jest.fn(({ content }) =>

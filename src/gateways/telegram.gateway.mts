@@ -1,7 +1,7 @@
 import { Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
-import { TelegramConfig } from "../config";
-import { ChatMessage, MessageId } from "../models/message";
+import { TelegramConfig } from "../config.mjs";
+import { ChatMessage, MessageId } from "../models/message.mjs";
 
 export interface TelegramGateway {
   launch(): Promise<void>;

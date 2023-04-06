@@ -1,7 +1,7 @@
-import { App } from "./app";
-import { aTelegramGatewayMock } from "./gateways/__mock__/telegram.gateway";
-import { anOpenaiGatewayMock } from "./gateways/__mock__/openai.gateway";
-import { aStorageGatewayMock } from "./gateways/__mock__/storage.gateway";
+import { App } from "./app.mjs";
+import { aTelegramGatewayMock } from "./gateways/__mock__/telegram.gateway.mjs";
+import { anOpenaiGatewayMock } from "./gateways/__mock__/openai.gateway.mjs";
+import { aStorageGatewayMock } from "./gateways/__mock__/storage.gateway.mjs";
 
 describe("App", () => {
   it("should run telegram bot when application starts", async () => {
