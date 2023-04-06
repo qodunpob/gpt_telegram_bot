@@ -1,7 +1,7 @@
-import { SequelizeStorageGateway } from "./storage.gateway";
+import { SequelizeStorageGateway } from "./storage.gateway.mjs";
 import { Sequelize } from "sequelize";
-import { initStorage } from "./sequelize-models";
-import { Message } from "./sequelize-models/message";
+import { initStorage } from "./sequelize-models/index.mjs";
+import { Message } from "./sequelize-models/message.mjs";
 
 describe("Storage Gateway", () => {
   let sequelize: Sequelize;

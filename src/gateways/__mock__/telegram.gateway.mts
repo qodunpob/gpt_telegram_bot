@@ -1,4 +1,4 @@
-import { ReceiveMessageEvent, TelegramGateway } from "../telegram.gateway";
+import { ReceiveMessageEvent, TelegramGateway } from "../telegram.gateway.mjs";
 
 class TelegramGatewayMock implements jest.Mocked<TelegramGateway> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

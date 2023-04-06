@@ -1,5 +1,5 @@
-import { SdkOpenAIGateway } from "./openai.gateway";
-import { anOpenAIApiMock } from "./__mock__/openai";
+import { SdkOpenAIGateway } from "./openai.gateway.mjs";
+import { anOpenAIApiMock } from "./__mock__/openai.mjs";
 
 describe("OpenAI Gateway", () => {
   it("should complete chat using given model and system message", async () => {

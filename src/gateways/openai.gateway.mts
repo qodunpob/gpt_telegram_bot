@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
-import { OpenAIConfig } from "../config";
-import { ConversationMessage } from "../models/message";
+import { OpenAIConfig } from "../config.mjs";
+import { ConversationMessage } from "../models/message.mjs";
 
 export interface OpenAIGateway {
   complete(messages: ConversationMessage[]): Promise<string>;

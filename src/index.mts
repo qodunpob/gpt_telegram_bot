@@ -1,16 +1,19 @@
-import { telegramGatewayFactory } from "./gateways/telegram.gateway";
-import { config } from "./config";
-import { openAIGatewayFactory } from "./gateways/openai.gateway";
-import { App } from "./app";
-import { storageGatewayFactory } from "./gateways/storage/storage.gateway";
+import {
+  openAIGatewayFactory,
+  storageGatewayFactory,
+  telegramGatewayFactory,
+} from "./gateways/index.mjs";
+import { config } from "./config.mjs";
+import { App } from "./app.mjs";
 
 const telegramGateway = telegramGatewayFactory(config);
 const openaiGateway = openAIGatewayFactory(config);
 const storageGateway = storageGatewayFactory(config);
 
 const app = new App(telegramGateway, openaiGateway, storageGateway);
-void app.launch();
 
 // Enable graceful stop
 process.once("SIGINT", () => app.stop("SIGINT"));
 process.once("SIGTERM", () => app.stop("SIGTERM"));
+
+await app.launch();

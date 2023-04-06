@@ -1,7 +1,7 @@
-import { ChatMessage, ConversationMessage } from "../../models/message";
-import { DbConfig } from "../../config";
-import { initStorage } from "./sequelize-models";
-import { Message } from "./sequelize-models/message";
+import { ChatMessage, ConversationMessage } from "../../models/message.mjs";
+import { DbConfig } from "../../config.mjs";
+import { initStorage } from "./sequelize-models/index.mjs";
+import { Message } from "./sequelize-models/message.mjs";
 
 export interface StorageGateway {
   makeConversation(message: ChatMessage): Promise<ConversationMessage[]>;
