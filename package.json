@@ -9,6 +9,13 @@
     "start:dev": "nodemon",
     "build": "rimraf dist && tsc",
     "test": "jest",
+    "lint": "npm run typescript:verify && npm run eslint && npm run format",
+    "lint:fix": "npm run eslint:fix && npm run format:fix",
+    "typescript:verify": "tsc --noEmit",
+    "eslint": "eslint src",
+    "eslint:fix": "eslint src --fix",
+    "format": "prettier --check src",
+    "format:fix": "prettier --write src",
     "migration:generate": "sequelize-cli migration:generate --name",
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo"

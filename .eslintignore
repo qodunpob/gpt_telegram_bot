@@ -1,3 +1,4 @@
+migrations
 jest.config.ts
 mjs-resolver.ts
-migrations
+.eslintrc.cjs

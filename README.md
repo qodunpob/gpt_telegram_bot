@@ -80,6 +80,13 @@ npm run start:dev
 npm test
 ```
 
+### Lint
+
+```
+npm run lint
+npm run lint:fix
+```
+
 ### Generate migration skeleton
 
 ```
