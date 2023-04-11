@@ -2,7 +2,7 @@
 
 A simple Node.js implementation of a Telegram Bot that uses the OpenAI API to generate responses.
 
-<img src="misc/demo.gif" height="500" alt="Demo">
+<img src="misc/demo.gif" width="231" height="500" alt="Demo">
 
 ## Environment variables
 
